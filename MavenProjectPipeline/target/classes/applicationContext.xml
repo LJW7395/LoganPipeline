@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">	
+		
+		<!-- This tag tells the framework that we want to use
+		an annotation-driven approach to declaring our components, beans,
+		and dependencies. -->
+		<context:annotation-config></context:annotation-config>
+		
+		<!-- This tag tells the framework which packages to scan for
+		annotations. You should always be as specific as possible. -->
+		<context:component-scan base-package="com.revature.service;com.revature.repository;com.revature.configuration"></context:component-scan>
+		
+		<!-- This is how we define a bean within our application context.
+		We give the bean a name and specify the fully qualified class
+		name of that bean. Note that this bean name specifies how we
+		must refer to this bean throughout our application. Whenever
+		we want an instance of this bean, we should use this name to
+		get that instance. 
+		
+		NOTE: Spring beans can have many different scopes. These scopes
+		include:
+			*singleton
+			*prototype
+			*session
+			*request
+			
+			Unless otherwise stated, a bean's scope is set to singleton.
+			This means that the framework will only return one shared
+			instance of that bean when the getBean() method is called.
+			This is the most commonly used scope.
+			
+			The prototype scope, on the other hand, will return a new
+			instance of a bean with each call to getBean(). The
+			session and request scopes are typically used in web
+			environments.
+		<bean name="mr" class="com.revature.repository.MovieRepositoryImpl" scope="singleton"></bean>
+		
+		<bean name="ms" class="com.revature.service.MovieServiceImpl">
+		Manual/Explicit Bean Wiring 
+		This is called bean wiring (because we're stringing our beans
+		together!). It entails creating relationships between our beans
+		(e.g. specifying that a bean has another bean as a field/property).
+		There are three ways to wire beans:
+		
+		Setting Injection, constructor injection, and field injection.
+		
+		Setter Injection: injecting a bean via another bean's setter.
+		The below example actually makes use of setter injection. Note that
+		I didn't specify that this bean should be injected via setter
+		injection. This is just the default behavior.
+		<property name="mr" ref="mr"></property></bean> -->
+		
+		<!-- Constructor Injection: Constructor Injection entails injecting
+		a bean via another bean's constructor. The below makes use of
+		constructor injection. I must specify that my wired-in bean is
+		a constructor argument and state that it references one of the
+		beans here in my application context.
+		
+		<bean name="ms" class="com.revature.service.MovieServiceImpl" autowire="constructor">
+		Constructor args start from 0.
+		<constructor-arg index="0" ref="mr"></constructor-arg>
+		</bean> -->
+		
+		<!-- Autowiring Beans:
+		
+		When we autowire beans, we don't have to explicitly wire beans
+		into other beans (as we did above). We can instead simply define
+		our beans and tell the framework to wire them in for us. We can
+		tell the framework to wire beans in for us byType, byName, or
+		by constructor.
+		
+		Autowiring byName: The framework looks for a property with the
+		given bean name in the current container. If it can't find a bean
+		of this name, nothing special happens.
+		
+		Autowiring byType: The framework looks for a property with the given
+		type in the current container. If there is no bean of this type,
+		nothing special happens.
+		
+		Further still, if there is more than one bean of this type present
+		in the container, a fatal error is raised as the framework will
+		not know which bean to instantiate. The solution to this problem is
+		to autowire beans byName to eliminate ambiguity.
+		
+		Autowiring by Constructor: The framework looks for an argument
+		of the given type in the constructor. If there is not exactly one
+		bean of the constructor argument type in the bean factory, a fatal
+		error is raised as the framework will not know which bean to
+		instantiate. -->
+</beans>

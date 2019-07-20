@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<!-- This is the root tag of a hibernate configuration file. -->
+<hibernate-configuration>
+<!-- This is where we will configure our session factory. Within our session factory,
+we will configure our database connection and several other important properties. -->
+	<session-factory>
+	<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+	<!-- This property specifies our SQL dialect. -->
+	<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+	<!-- Let's now configure our connection URL, username, and password. 
+	NOTE: Moved to our SessionFactory class to secure URL, username, and password.-->
+	<!-- This determines how many connections a single user is allowed to a database.
+	Having several connections will speed up the database process for a user, but this
+	will also eat up all available connections you have for a database much more
+	quickly. -->
+	<property name="hibernate.connection.pool_size">5</property>
+	<!-- Simply writes all of the generated SQL Hibernate is using to the console. -->
+	<property name="show_sql">true</property>
+	<property name="hibernate.current_session_context_class">thread</property>
+	<!-- This property tells Hibernate how to deal with a database. It can be in one
+	of four states: 
+		CREATE: Hibernate will purge the existing database and create it from scratch.
+		UPDATE: Hibernate connects to the existing database and interacts with it 
+		without removing current data.
+		VALIDATE: Validates an existing schema before updating the schema
+		CREATE-DROP: Purges existing tables and creates them from scratch. Then,
+		when the server is shut down, it purges the data again.
+		
+		NOTE: You should NEVER run Hibernate in CREATE mode. This is considered
+		bad practice. You should always manually create your schema and then
+		run Hibernate in validate mode to validate that schema.
+		 -->
+	<property name="hibernate.hbm2ddl.auto">validate</property>
+	<!---This is optional level 2 (L2) caching. Our second level caching provider is
+	EHCACHE. -->
+	
+	<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+	<property name="hibernate.cache.use_second_level_cache">false</property>
+	<!-- 
+	We have to let Hibernate know which classes it should map to the entities
+	in our database. We have two options here. We can either:
+	1. Create an hbm.xml file and manually configure our classes' relationships
+	to the entities in our DB and map that file as a "resource".
+	2. Create a Java Bean and use our Hibernate annotations within that Bean and
+	then map that bean as a "class". -->
+	<mapping class="com.revature.model.Tournament"/>
+	<mapping class="com.revature.model.User"/>
+	</session-factory>
+</hibernate-configuration>
