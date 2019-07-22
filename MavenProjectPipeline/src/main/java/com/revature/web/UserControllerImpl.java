@@ -1,22 +1,26 @@
 package com.revature.web;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.model.User;
 import com.revature.service.UserService;
 
-@Controller
+@CrossOrigin
+@RestController
 @RequestMapping(value = "/aether")
 public class UserControllerImpl {
 
@@ -27,6 +31,12 @@ public class UserControllerImpl {
 		this.us = us;
 	}
 
+//	@RequestMapping(value="/register", method = RequestMethod.POST)
+//	public ModelAndView userRegister(HttpServletRequest request, HttpServletResponse response) {
+//		
+//	}
+
+	
 //	@Override
 //	@RequestMapping(value = "/home", method = RequestMethod.GET)
 //	public String home() {
@@ -53,6 +63,13 @@ public class UserControllerImpl {
 		return us.getAllUsers();
 	}
 
+
+	@PostMapping(value = "/login", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Object> userLogin(@RequestBody User u)
+	{
+		return new ResponseEntity<Object>(u, HttpStatus.OK);
+	}
+	
 	@GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public User getUserById(@PathVariable int id) {

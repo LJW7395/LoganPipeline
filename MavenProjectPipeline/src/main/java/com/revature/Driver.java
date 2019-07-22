@@ -1,9 +1,9 @@
 package com.revature;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import java.util.List;
 
-import com.revature.service.UserService;
+import com.revature.model.User;
+import com.revature.repository.UserRepository;
 
 public class Driver {
 	public static void main(String[] args) throws Exception {
@@ -12,10 +12,10 @@ public class Driver {
 		 * This line of code specifies that we are defining our application
 		 * context as a resource that exists as an XML file on our classpath.
 		 */
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		//ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		
-		UserService us = context.getBean("us2", UserService.class);
+		List<User> us = new UserRepository().getAllUsers();
 		
-		System.out.println(us.getAllUsers());
+		System.out.println(us);
 	}
 }
