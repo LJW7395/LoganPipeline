@@ -13,28 +13,28 @@ import com.revature.repository.UserRepository;
 
 @Service("us")
 public class UserService {
-private UserRepository ur;
-    
-    @Autowired
-    public UserService(UserRepository ur) {
-        this.ur = ur;
-    }
-    
-    public void setUr(UserRepository ur){
-        this.ur = ur;
-    }
-    
-    public List<User> getAllUsers(){
-        return ur.getAllUsers();
-    }
-    
-    public User getUserById(int user_id) {
-    	return ur.getUserById(user_id);
-    }
+	private UserRepository ur;
 
-	public boolean userLogin(HttpServletRequest req, HttpServletResponse resp) {
+	@Autowired
+	public UserService(UserRepository ur) {
+		this.ur = ur;
+	}
+
+	public void setUr(UserRepository ur) {
+		this.ur = ur;
+	}
+
+	public List<User> getAllUsers() {
+		return ur.getAllUsers();
+	}
+
+	public User getUserById(int user_id) {
+		return ur.getUserById(user_id);
+	}
+
+	public boolean userLogin(User u, HttpServletRequest req) {
 		System.out.println("we are in the service layer of the log in method.");
-	return	ur.userLogin(req, resp);
-		
+		return ur.userLogin(u, req);
+
 	}
 }
