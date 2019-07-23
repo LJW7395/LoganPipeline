@@ -21,6 +21,7 @@ public class SessionFactory {
 					.setProperty("hibernate.connection.username", System.getenv("dbusername2"))
 					.setProperty("hibernate.connection.password", System.getenv("dbpassword2")).buildSessionFactory();
 		}
+		sessionFactory.openSession();
 		return sessionFactory.getCurrentSession();
 	}
 }
