@@ -11,6 +11,14 @@
 		<maven.target.source>1.8</maven.target.source>
 	</properties>
 	
+	<plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>maven-gpg-plugin</artifactId>
+    <configuration>
+        <skip>true</skip>
+    </configuration>
+</plugin>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
