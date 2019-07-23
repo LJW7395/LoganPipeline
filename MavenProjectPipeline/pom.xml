@@ -11,20 +11,6 @@
 		<maven.target.source>1.8</maven.target.source>
 	</properties>
 	
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>maven-gpg-plugin</artifactId>
-    <configuration>
-        <skip>true</skip>
-    </configuration>
-</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
-	
 	<dependencies>
 		
 		<dependency>
