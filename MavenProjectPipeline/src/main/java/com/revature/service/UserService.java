@@ -32,7 +32,7 @@ public class UserService {
 		return ur.getUserById(user_id);
 	}
 
-	public boolean userLogin(User u, HttpServletRequest req) {
+	public User userLogin(User u, HttpServletRequest req) {
 		System.out.println("we are in the service layer of the log in method.");
 		return ur.userLogin(u, req);
 
