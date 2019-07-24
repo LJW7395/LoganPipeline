@@ -70,9 +70,10 @@ public class UserControllerImpl {
 
 	@PostMapping(value = "/login")
 	public @ResponseBody ResponseEntity<Object> userLogin(@ModelAttribute User u, HttpServletRequest req) {
-		if (us.userLogin(u, req)) {
+		User user = us.userLogin(u, req);
+		if (user != null) {
 			//userInfo(u);
-			return new ResponseEntity<Object>(u, HttpStatus.OK);
+			return new ResponseEntity<Object>(user, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Object>(u, HttpStatus.UNAUTHORIZED);
 		}
