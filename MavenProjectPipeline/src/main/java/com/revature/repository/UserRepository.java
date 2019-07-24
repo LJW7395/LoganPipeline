@@ -108,12 +108,14 @@ public class UserRepository {
 		return u;
 	}
 
-	public boolean userLogin(User u, HttpServletRequest req) {
+	public User userLogin(User u, HttpServletRequest req) {
 		// TODO Auto-generated method stub
 //		Session s = null;
 		System.out.println("We are in the repository layer of the log in method.");
 //		final String username = req.getParameter("username");
 //		final String password = req.getParameter("password");
+		
+		User user = us.getUserByUsername(u.getUsername());
 
 		if (u.getUsername() != null && !u.getUsername().equals("") && u.getPassword() != null
 				&& !u.getPassword().equals("")) {
@@ -127,10 +129,10 @@ public class UserRepository {
 				s.setAttribute("user_id", u.getUser_id());
 				s.setAttribute("role", u.getUsers_role());
 
-				return true;
+				//return true;
 			}
 		}
-		return false;
+		return user;
 
 	}
 }
