@@ -17,9 +17,9 @@ public class SessionFactory {
 
 		if (sessionFactory == null) {
 			sessionFactory = new Configuration().configure()
-					.setProperty("hibernate.connection.url", System.getenv("dburl2"))
-					.setProperty("hibernate.connection.username", System.getenv("dbusername2"))
-					.setProperty("hibernate.connection.password", System.getenv("dbpassword2")).buildSessionFactory();
+					.setProperty("hibernate.connection.url", "jdbc:postgresql://loganw2.cl7of5otbbur.us-east-1.rds.amazonaws.com/logandb")
+					.setProperty("hibernate.connection.username", "LJW7395")
+					.setProperty("hibernate.connection.password", "password2").buildSessionFactory();
 		}
 		return sessionFactory.getCurrentSession();
 	}
