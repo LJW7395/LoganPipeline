@@ -47,6 +47,7 @@ public class UserRepository {
 		return users;
 	}
 
+	@Transactional
 	public User getUserByUsername(String username) {
 		User u = null;
 		Session s = null;
