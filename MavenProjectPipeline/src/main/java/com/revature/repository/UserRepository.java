@@ -47,7 +47,6 @@ public class UserRepository {
 		return users;
 	}
 
-	@Transactional
 	public User getUserByUsername(String username) {
 		User u = null;
 		Session s = null;
@@ -80,11 +79,7 @@ public class UserRepository {
 			e.printStackTrace();
 			tx.rollback();
 		} finally {
-			try{
 			    s.close();
-			}catch(NullPointerException e){
-				e.printStackTrace();
-			}
 		}
 
 		return u;
