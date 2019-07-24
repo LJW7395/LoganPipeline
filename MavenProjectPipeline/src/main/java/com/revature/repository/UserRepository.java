@@ -135,4 +135,26 @@ public class UserRepository {
 		return user;
 
 	}
+
+	public void userRegistration(User u) {
+        // TODO Auto-generated method stub
+		System.out.println("The movie we received is " + u);
+        Session s = null;
+        Transaction tx = null;
+        
+        try {
+            s = SessionFactory.getSession();
+            tx = s.beginTransaction();
+            
+            s.save(u);  
+            tx.commit();
+        }catch(HibernateException e) {
+            e.printStackTrace();
+            tx.rollback();
+            
+        }finally {
+            s.close();
+    
+        }
+    }
 }
