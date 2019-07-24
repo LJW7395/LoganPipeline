@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
+
 
 import com.revature.model.User;
 import com.revature.service.UserService;
@@ -103,8 +102,16 @@ public class UserControllerImpl {
 //		return null;
 //	}
 
-	@PostMapping(value = "/user/insert", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void postUser(@RequestBody User m) {
-		System.out.println("The movie we received is " + m);
-	}
+	@PostMapping(value = "/registration")
+    public @ResponseBody ResponseEntity<Object> postUser(@RequestBody User u) {
+       
+        System.out.println("The movie we received is " + u);
+		 us.userRegistration(u);;
+		 if (u != null) {
+				//userInfo(u);
+				return new ResponseEntity<Object>(u, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(u, HttpStatus.UNAUTHORIZED);
+			}
+    }
 }

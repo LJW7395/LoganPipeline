@@ -37,4 +37,10 @@ public class UserService {
 		return ur.userLogin(u, req);
 
 	}
+
+	public void userRegistration(User u) {
+		// TODO Auto-generated method stub
+        ur.userRegistration(u);
+
+	}
 }
