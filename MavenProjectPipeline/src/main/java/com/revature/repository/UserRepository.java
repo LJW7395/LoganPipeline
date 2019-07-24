@@ -114,12 +114,12 @@ public class UserRepository {
 		System.out.println("We are in the repository layer of the log in method.");
 //		final String username = req.getParameter("username");
 //		final String password = req.getParameter("password");
-		
+		UserRepository us = new UserRepository();
 		User user = us.getUserByUsername(u.getUsername());
 
 		if (u.getUsername() != null && !u.getUsername().equals("") && u.getPassword() != null
 				&& !u.getPassword().equals("")) {
-			UserRepository us = new UserRepository();
+			
 			if (us.getUserByUsername(u.getUsername()) != null
 					&& u.getPassword().equals(us.getUserByUsername(u.getUsername()).getPassword())) {
 
