@@ -79,7 +79,11 @@ public class UserRepository {
 			e.printStackTrace();
 			tx.rollback();
 		} finally {
-			s.close();
+			try{
+			    s.close();
+			}catch(NullPointerException e){
+				e.printStackTrace();
+			}
 		}
 
 		return u;
