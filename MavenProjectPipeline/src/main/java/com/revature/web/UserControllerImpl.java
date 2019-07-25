@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.revature.model.User;
 import com.revature.service.UserService;
@@ -71,13 +72,13 @@ public class UserControllerImpl {
 	public @ResponseBody ResponseEntity<Object> userLogin(@ModelAttribute User u, HttpServletRequest req) {
 		User user = us.userLogin(u, req);
 		if (user != null) {
-			//userInfo(u);
+			// userInfo(u);
 			return new ResponseEntity<Object>(user, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Object>(u, HttpStatus.UNAUTHORIZED);
 		}
 	}
-	
+
 //	@GetMapping(value = "/info")
 //	public String userInfo(@SessionAttribute("u") User u) {
 //		System.out.println("username is: " + u.getUsername());
@@ -102,16 +103,30 @@ public class UserControllerImpl {
 //		return null;
 //	}
 
-	@PostMapping(value = "/registration")
-    public @ResponseBody ResponseEntity<Object> postUser(@RequestBody User u) {
-       
-        System.out.println("The movie we received is " + u);
-		 us.userRegistration(u);;
-		 if (u != null) {
-				//userInfo(u);
-				return new ResponseEntity<Object>(u, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<Object>(u, HttpStatus.UNAUTHORIZED);
-			}
-    }
+	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	public @ResponseBody User postUser(@RequestParam(name = "username") String username,
+			@RequestParam(name = "password") String password, @RequestParam(name = "first_name") String first_name,
+			@RequestParam(name = "last_name") String last_name, @RequestParam(name = "region") String region,
+			@RequestParam(name = "phrase") String phrase, @RequestParam(name = "users_role") String users_role,
+			HttpServletResponse resp) throws IOException {
+		User u = new User();
+		u.setUsername(username);
+		u.setPassword(password);
+		u.setFirst_name(first_name);
+		u.setLast_name(last_name);
+		u.setRegion(region);
+		u.setRanking(50);
+		u.setPhrase(phrase);
+		u.setPoints(1000);
+		u.setUsers_role(users_role);
+		System.out.println("The movie we received is " + u);
+		us.userRegistration(u);
+		if (u != null) {
+			// userInfo(u);
+			resp.sendRedirect("localhost:4200/login");
+			return u;
+		} else {
+			return u;
+		}
+	}
 }
