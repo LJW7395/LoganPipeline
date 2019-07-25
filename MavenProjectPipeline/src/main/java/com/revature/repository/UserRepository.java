@@ -137,8 +137,6 @@ public class UserRepository {
 	}
 
 	public void userRegistration(User u) {
-        // TODO Auto-generated method stub
-		System.out.println("The movie we received is " + u);
         Session s = null;
         Transaction tx = null;
         

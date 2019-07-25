@@ -1,7 +1,10 @@
 package com.revature.web;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -69,6 +72,7 @@ public class UserControllerImpl {
 
 	@PostMapping(value = "/login")
 	public @ResponseBody ResponseEntity<Object> userLogin(@ModelAttribute User u, HttpServletRequest req) {
+		System.out.println(httpServletRequestToString(req));
 		User user = us.userLogin(u, req);
 		if (user != null) {
 			//userInfo(u);
@@ -102,7 +106,7 @@ public class UserControllerImpl {
 //		return null;
 //	}
 
-	@PostMapping(value = "/registration")
+	@PostMapping(value = "/registration", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<Object> postUser(@RequestBody User u) {
        
         System.out.println("The movie we received is " + u);
@@ -114,4 +118,35 @@ public class UserControllerImpl {
 				return new ResponseEntity<Object>(u, HttpStatus.UNAUTHORIZED);
 			}
     }
+	
+	private String httpServletRequestToString(HttpServletRequest request) {
+	    StringBuilder sb = new StringBuilder();
+
+	    sb.append("Request Method = [" + request.getMethod() + "], ");
+	    sb.append("Request URL Path = [" + request.getRequestURL() + "], ");
+
+	    String headers =
+	        (String) Collections.list(request.getHeaderNames()).stream()
+		    .map(headerName -> headerName + " : " + Collections.list(request.getHeaders((String) headerName)) )
+		    .collect(Collectors.joining(", "));
+
+	    if (headers.isEmpty()) {
+	        sb.append("Request headers: NONE,");
+	    } else {
+	        sb.append("Request headers: ["+headers+"],");
+	    }
+
+	    String parameters =
+	        (String) Collections.list(request.getParameterNames()).stream()
+		    .map(p -> p + " : " + Arrays.asList( request.getParameterValues((String) p)) )
+		    .collect(Collectors.joining(", "));             
+
+	    if (parameters.isEmpty()) {
+	        sb.append("Request parameters: NONE.");
+	    } else {
+	        sb.append("Request parameters: [" + parameters + "].");
+	    }
+
+	    return sb.toString();
+	}
 }
