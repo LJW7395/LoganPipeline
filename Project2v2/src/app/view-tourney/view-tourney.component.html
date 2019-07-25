@@ -1,0 +1,9 @@
+<h3 *ngIf="tournamentName == undefined">Loading...</h3>
+<h3>{{tournamentName}}</h3>
+
+<span>
+    <h4 style="display:inline-block">Bracket</h4>
+    <a style="float:right;margin-top:20px" href="https://challonge.com/{{id}}" target="_blank"><button>Open Challonge</button></a>
+</span>
+
+<iframe [src]=completeURL width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
