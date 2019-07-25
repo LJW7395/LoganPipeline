@@ -65,15 +65,16 @@ public class UserControllerImpl {
 //		return "404";
 //	}
 
+	/*
 	@GetMapping(value = "/user/all", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody // Whatever we return is written to the response body
 	public List<User> getAllUsers() {
 		return us.getAllUsers();
-	}
+	}*/
 
 	@PostMapping(value = "/login")
 	public @ResponseBody ResponseEntity<Object> userLogin(@ModelAttribute User u, HttpServletRequest req) {
-		System.out.println(httpServletRequestToString(req));
+		System.out.println("Request:"+httpServletRequestToString(req));
 		User user = us.userLogin(u, req);
 		if (user != null) {
 			// userInfo(u);
