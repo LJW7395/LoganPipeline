@@ -35,7 +35,7 @@ public class UserRepository {
 			tx = s.beginTransaction();
 			// This HQL (Hibernate Query Language). It provides a more object-oriented
 			// way of querying our DB.
-			users = s.createQuery("FROM User", User.class).getResultList();
+			users = s.createQuery("FROM User ", User.class).getResultList();
 			tx.commit();
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -45,6 +45,31 @@ public class UserRepository {
 		}
 
 		return users;
+	}
+	public List<User> getAllUsersByPoints() {
+		List<User> users = new ArrayList<>();
+		Session s = null;
+		Transaction tx = null;
+		
+		try {
+			s = SessionFactory.getSession();
+			tx = s.beginTransaction();
+			
+			CriteriaBuilder cb = s.getCriteriaBuilder();
+			CriteriaQuery<User> cq = cb.createQuery(User.class);
+			Root<User> root = cq.from(User.class);
+			cq.select(root);
+			cq.orderBy(cb.desc(root.get("points")));
+			 
+			users = s.createQuery(cq).getResultList();
+		}catch(HibernateException e) {
+			e.printStackTrace();
+			tx.rollback();
+		}finally {
+		    s.close();
+	}
+
+	return users;
 	}
 
 	public User getUserByUsername(String username) {
@@ -158,3 +183,4 @@ public class UserRepository {
         }
     }
 }
+

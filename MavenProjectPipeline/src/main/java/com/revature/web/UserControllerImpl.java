@@ -65,16 +65,16 @@ public class UserControllerImpl {
 //		return "404";
 //	}
 
-	/*
-	@GetMapping(value = "/user/all", produces = MediaType.APPLICATION_JSON_VALUE)
+	
+	@GetMapping(value = "/allUsers", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody // Whatever we return is written to the response body
 	public List<User> getAllUsers() {
 		return us.getAllUsers();
-	}*/
+	}
 
 	@PostMapping(value = "/login")
 	public @ResponseBody ResponseEntity<Object> userLogin(@ModelAttribute User u, HttpServletRequest req) {
-		System.out.println("Request:"+httpServletRequestToString(req));
+	//	System.out.println("Request:"+httpServletRequestToString(req));
 		User user = us.userLogin(u, req);
 		if (user != null) {
 			// userInfo(u);
@@ -135,32 +135,32 @@ public class UserControllerImpl {
 		}
 	}
 
-	private String httpServletRequestToString(HttpServletRequest request) {
-		StringBuilder sb = new StringBuilder();
-
-		sb.append("Request Method = [" + request.getMethod() + "], ");
-		sb.append("Request URL Path = [" + request.getRequestURL() + "], ");
-
-		String headers = (String) Collections.list(request.getHeaderNames()).stream()
-				.map(headerName -> headerName + " : " + Collections.list(request.getHeaders((String) headerName)))
-				.collect(Collectors.joining(", "));
-
-		if (headers.isEmpty()) {
-			sb.append("Request headers: NONE,");
-		} else {
-			sb.append("Request headers: [" + headers + "],");
-		}
-
-		String parameters = (String) Collections.list(request.getParameterNames()).stream()
-				.map(p -> p + " : " + Arrays.asList(request.getParameterValues((String) p)))
-				.collect(Collectors.joining(", "));
-
-		if (parameters.isEmpty()) {
-			sb.append("Request parameters: NONE.");
-		} else {
-			sb.append("Request parameters: [" + parameters + "].");
-		}
-
-		return sb.toString();
-	}
+//	private String httpServletRequestToString(HttpServletRequest request) {
+//		StringBuilder sb = new StringBuilder();
+//
+//		sb.append("Request Method = [" + request.getMethod() + "], ");
+//		sb.append("Request URL Path = [" + request.getRequestURL() + "], ");
+//
+//		String headers = (String) Collections.list(request.getHeaderNames()).stream()
+//				.map(headerName -> headerName + " : " + Collections.list(request.getHeaders((String) headerName)))
+//				.collect(Collectors.joining(", "));
+//
+//		if (headers.isEmpty()) {
+//			sb.append("Request headers: NONE,");
+//		} else {
+//			sb.append("Request headers: [" + headers + "],");
+//		}
+//
+//		String parameters = (String) Collections.list(request.getParameterNames()).stream()
+//				.map(p -> p + " : " + Arrays.asList(request.getParameterValues((String) p)))
+//				.collect(Collectors.joining(", "));
+//
+//		if (parameters.isEmpty()) {
+//			sb.append("Request parameters: NONE.");
+//		} else {
+//			sb.append("Request parameters: [" + parameters + "].");
+//		}
+//
+//		return sb.toString();
+//	}
 }

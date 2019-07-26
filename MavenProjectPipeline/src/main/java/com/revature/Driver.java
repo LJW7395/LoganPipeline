@@ -17,5 +17,6 @@ public class Driver {
 		List<User> us = new UserRepository().getAllUsers();
 		
 		System.out.println(us);
+		
 	}
 }

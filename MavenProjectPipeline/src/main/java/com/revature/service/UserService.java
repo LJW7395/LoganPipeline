@@ -25,7 +25,7 @@ public class UserService {
 	}
 
 	public List<User> getAllUsers() {
-		return ur.getAllUsers();
+		return ur.getAllUsersByPoints();
 	}
 
 	public User getUserById(int user_id) {
