@@ -25,27 +25,26 @@ import com.revature.repository.UserRepository;
 @Repository("ur")
 public class UserRepository {
 
-	public List<User> getAllUsers() {
-		List<User> users = new ArrayList<>();
-		Session s = null;
-		Transaction tx = null;
-
-		try {
-			s = SessionFactory.getSession();
-			tx = s.beginTransaction();
-			// This HQL (Hibernate Query Language). It provides a more object-oriented
-			// way of querying our DB.
-			users = s.createQuery("FROM User", User.class).getResultList();
-			tx.commit();
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			tx.rollback();
-		} finally {
-			s.close();
-		}
-
-		return users;
-	}
+//	public List<User> getAllUsers() {
+//		List<User> users = new ArrayList<>();
+//		Session s = null;
+//		Transaction tx = null;
+//
+//		try {
+//			s = SessionFactory.getSession();
+//			tx = s.beginTransaction();
+//			
+//			users = s.createQuery("FROM User", User.class).getResultList();
+//			tx.commit();
+//		} catch (HibernateException e) {
+//			e.printStackTrace();
+//			tx.rollback();
+//		} finally {
+//			s.close();
+//		}
+//
+//		return users;
+//	}
 
 	public User getUserByUsername(String username) {
 		User u = null;
@@ -55,8 +54,7 @@ public class UserRepository {
 		try {
 			s = SessionFactory.getSession();
 			tx = s.beginTransaction();
-			// This CriteriaBuilder will help us narrow down our search by allowing
-			// us to add Restrictions to our query.
+		
 			CriteriaBuilder cb = s.getCriteriaBuilder();
 			CriteriaQuery<User> cq = cb.createQuery(User.class);
 			Root<User> root = cq.from(User.class);
@@ -79,7 +77,7 @@ public class UserRepository {
 			e.printStackTrace();
 			tx.rollback();
 		} finally {
-			    s.close();
+			s.close();
 		}
 
 		return u;
@@ -91,8 +89,7 @@ public class UserRepository {
 
 		try {
 			s = SessionFactory.getSession();
-			// This CriteriaBuilder will help us narrow down our search by allowing
-			// us to add Restrictions to our query.
+
 			CriteriaBuilder cb = s.getCriteriaBuilder();
 			CriteriaQuery<User> cq = cb.createQuery(User.class);
 			Root<User> root = cq.from(User.class);
@@ -110,16 +107,14 @@ public class UserRepository {
 
 	public User userLogin(User u, HttpServletRequest req) {
 		// TODO Auto-generated method stub
-//		Session s = null;
 		System.out.println("We are in the repository layer of the log in method.");
-//		final String username = req.getParameter("username");
-//		final String password = req.getParameter("password");
+
 		UserRepository us = new UserRepository();
 		User user = us.getUserByUsername(u.getUsername());
 
 		if (u.getUsername() != null && !u.getUsername().equals("") && u.getPassword() != null
 				&& !u.getPassword().equals("")) {
-			
+
 			if (us.getUserByUsername(u.getUsername()) != null
 					&& u.getPassword().equals(us.getUserByUsername(u.getUsername()).getPassword())) {
 
@@ -129,7 +124,6 @@ public class UserRepository {
 				s.setAttribute("user_id", u.getUser_id());
 				s.setAttribute("role", u.getUsers_role());
 
-				//return true;
 			}
 		}
 		return user;
@@ -137,24 +131,70 @@ public class UserRepository {
 	}
 
 	public void userRegistration(User u) {
-        // TODO Auto-generated method stub
-		System.out.println("The movie we received is " + u);
+		Session s = null;
+		Transaction tx = null;
+
+		try {
+			s = SessionFactory.getSession();
+			tx = s.beginTransaction();
+
+			s.save(u);
+			tx.commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			tx.rollback();
+
+		} finally {
+			s.close();
+
+		}
+	}
+	
+	public void updatePoints(String username, int points) {
         Session s = null;
         Transaction tx = null;
-        
+        User u = getUserByUsername(username);
+        u.incrementPoints(points);
         try {
             s = SessionFactory.getSession();
             tx = s.beginTransaction();
-            
-            s.save(u);  
+            s.merge(u);
             tx.commit();
+            
         }catch(HibernateException e) {
             e.printStackTrace();
             tx.rollback();
-            
         }finally {
             s.close();
-    
         }
     }
+
+	public List<User> getAllUsersByPoints() {
+		System.out.println("getAllUsersByPoints invoked");
+		
+		List<User> users = new ArrayList<>();
+		Session s = null;
+		Transaction tx = null;
+		
+		
+		
+		try {
+			s = SessionFactory.getSession();
+			tx = s.beginTransaction();
+
+			CriteriaBuilder cb = s.getCriteriaBuilder();
+			CriteriaQuery<User> cq = cb.createQuery(User.class);
+			Root<User> root = cq.from(User.class);
+			cq.select(root);
+			cq.orderBy(cb.desc(root.get("points")));
+
+			users = s.createQuery(cq).getResultList();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			s.close();
+		}
+		return users;
+	}
 }

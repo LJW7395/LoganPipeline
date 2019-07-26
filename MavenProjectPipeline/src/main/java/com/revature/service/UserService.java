@@ -25,7 +25,8 @@ public class UserService {
 	}
 
 	public List<User> getAllUsers() {
-		return ur.getAllUsers();
+		System.out.println("getAllUsers in UserService invoked");
+		return ur.getAllUsersByPoints();
 	}
 
 	public User getUserById(int user_id) {
@@ -40,7 +41,13 @@ public class UserService {
 
 	public void userRegistration(User u) {
 		// TODO Auto-generated method stub
+		System.out.println("we are in registration.");
+
         ur.userRegistration(u);
 
 	}
+	
+	public void updatePoints(String username, int points) {
+        ur.updatePoints(username, points);
+    }
 }

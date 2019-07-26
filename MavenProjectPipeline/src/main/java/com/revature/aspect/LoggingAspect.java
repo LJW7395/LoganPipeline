@@ -46,11 +46,7 @@ private static final Logger LOG = LogManager.getLogger(LoggingAspect.class);
 	public void logAfterException(JoinPoint jp, Exception exceptionThrown) {
 		
 	}
-	
-	/*
-	 * When using Around Advice, be careful because all of your beans aren't
-	 * guaranteed to be instantiated.
-	 */
+
 	
 	@Around("logAll()")
 	public void logAroundAll(JoinPoint jp) {

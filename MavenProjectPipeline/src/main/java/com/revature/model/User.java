@@ -9,7 +9,6 @@ import javax.persistence.Table;
 
 @Entity
 
-//Specifies that this class is going to be a table
 @Table(name="users", schema="tournament")
 public class User {
 	@Id
@@ -48,6 +47,10 @@ public class User {
     public User() {
         super();
         // TODO Auto-generated constructor stub
+    }
+    
+    public void incrementPoints(int points) {
+        this.points += points;
     }
 
 
