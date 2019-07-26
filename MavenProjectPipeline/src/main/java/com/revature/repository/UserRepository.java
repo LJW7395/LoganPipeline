@@ -141,6 +141,8 @@ public class UserRepository {
 //		final String password = req.getParameter("password");
 		UserRepository us = new UserRepository();
 		User user = us.getUserByUsername(u.getUsername());
+		
+		System.out.println("We are trying to get username: "+ u);
 
 		if (u.getUsername() != null && !u.getUsername().equals("") && u.getPassword() != null
 				&& !u.getPassword().equals("")) {
