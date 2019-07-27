@@ -27,8 +27,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.model.User;
 import com.revature.service.UserService;
 
+//Cross Origin is a cross point that will allow angular requests on handler
 @CrossOrigin
+//Rest Controller is a controller and request body so no need to have a requestbody annotation
 @RestController
+//Request mapping will say the value of our api name.
 @RequestMapping(value = "/aether")
 //@SessionAttributes("u")
 public class UserControllerImpl {
@@ -104,33 +107,5 @@ public class UserControllerImpl {
         return new User();
     }
 
-	/*
-	private String httpServletRequestToString(HttpServletRequest request) {
-		StringBuilder sb = new StringBuilder();
 
-		sb.append("Request Method = [" + request.getMethod() + "], ");
-		sb.append("Request URL Path = [" + request.getRequestURL() + "], ");
-
-		String headers = (String) Collections.list(request.getHeaderNames()).stream()
-				.map(headerName -> headerName + " : " + Collections.list(request.getHeaders((String) headerName)))
-				.collect(Collectors.joining(", "));
-
-		if (headers.isEmpty()) {
-			sb.append("Request headers: NONE,");
-		} else {
-			sb.append("Request headers: [" + headers + "],");
-		}
-
-		String parameters = (String) Collections.list(request.getParameterNames()).stream()
-				.map(p -> p + " : " + Arrays.asList(request.getParameterValues((String) p)))
-				.collect(Collectors.joining(", "));
-
-		if (parameters.isEmpty()) {
-			sb.append("Request parameters: NONE.");
-		} else {
-			sb.append("Request parameters: [" + parameters + "].");
-		}
-
-		return sb.toString();
-	}*/
 }
