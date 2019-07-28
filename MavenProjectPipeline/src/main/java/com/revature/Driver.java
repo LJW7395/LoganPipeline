@@ -13,5 +13,6 @@ public class Driver {
 		List<User> us = new UserRepository().getAllUsersByPoints();
 		
 		System.out.println(us);
+		
 	}
 }
