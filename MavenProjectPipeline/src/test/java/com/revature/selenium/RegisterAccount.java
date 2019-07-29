@@ -43,8 +43,6 @@ public class RegisterAccount {
 		this.phrase.sendKeys(phrase);
 		this.users_role.sendKeys(users_role);
 		this.submit.click();
-
-
 	}
 
 }
