@@ -46,7 +46,8 @@ public class UserControllerImpl {
 	}
 
 
-//
+//getting values for all users, this method will produce JSON as a result and will be 
+	//sent in the response.
 	@GetMapping(value = "/allUsers", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody // Whatever we return is written to the response body
 	public List<User> getAllUsers() {
@@ -54,7 +55,8 @@ public class UserControllerImpl {
 		return us.getAllUsers();
 	}
 
-
+	//creating a HttpServlet in order to create a session, however due to the  scope of the project
+	//we decided as a group to not have sessions. We are working functionality rather than number of services.
 	@PostMapping(value = "/login")
 	public @ResponseBody ResponseEntity<Object> userLogin(@ModelAttribute User u, HttpServletRequest req) {
 		//System.out.println("Request:"+httpServletRequestToString(req));
@@ -79,6 +81,9 @@ public class UserControllerImpl {
 
 
 
+	//Originally we had @Model Attribute and Response Body not getting params. It worked on Postman
+	//However working with angular has been another issue. I tried using Request Params because it was
+	//the most specific way to get values from the form as JSON values without the application breaking.
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public @ResponseBody User postUser(@RequestParam(name = "username") String username,
 			@RequestParam(name = "password") String password, @RequestParam(name = "first_name") String first_name,

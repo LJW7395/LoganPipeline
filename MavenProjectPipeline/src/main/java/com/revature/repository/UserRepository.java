@@ -25,28 +25,7 @@ import com.revature.repository.UserRepository;
 @Repository("ur")
 public class UserRepository {
 
-<<<<<<< HEAD
-//	public List<User> getAllUsers() {
-//		List<User> users = new ArrayList<>();
-//		Session s = null;
-//		Transaction tx = null;
-//
-//		try {
-//			s = SessionFactory.getSession();
-//			tx = s.beginTransaction();
-//			
-//			users = s.createQuery("FROM User", User.class).getResultList();
-//			tx.commit();
-//		} catch (HibernateException e) {
-//			e.printStackTrace();
-//			tx.rollback();
-//		} finally {
-//			s.close();
-//		}
-//
-//		return users;
-//	}
-=======
+
 	public List<User> getAllUsers() {
 		List<User> users = new ArrayList<>();
 		Session s = null;
@@ -68,32 +47,9 @@ public class UserRepository {
 
 		return users;
 	}
-	public List<User> getAllUsersByPoints() {
-		List<User> users = new ArrayList<>();
-		Session s = null;
-		Transaction tx = null;
-		
-		try {
-			s = SessionFactory.getSession();
-			tx = s.beginTransaction();
-			
-			CriteriaBuilder cb = s.getCriteriaBuilder();
-			CriteriaQuery<User> cq = cb.createQuery(User.class);
-			Root<User> root = cq.from(User.class);
-			cq.select(root);
-			cq.orderBy(cb.desc(root.get("points")));
-			 
-			users = s.createQuery(cq).getResultList();
-		}catch(HibernateException e) {
-			e.printStackTrace();
-			tx.rollback();
-		}finally {
-		    s.close();
-	}
+	
 
-	return users;
-	}
->>>>>>> 02f4de53fd91607eab931276fa9a01c2a853bae4
+
 
 	public User getUserByUsername(String username) {
 		User u = null;
