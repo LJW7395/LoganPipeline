@@ -87,7 +87,7 @@ public class UserRepository {
 
 		return u;
 	}
-
+//did not use this method, however if we needed to get user id this is how we would get it.
 	public User getUserById(int user_id) {
 		User u = null;
 		Session s = null;
@@ -110,6 +110,8 @@ public class UserRepository {
 		return u;
 	}
 
+	//creating a log in function in order to check the username/password. Created
+	//an HTTP session in order to keep track of the responses and requests.
 	public User userLogin(User u, HttpServletRequest req) {
 		// TODO Auto-generated method stub
 		System.out.println("We are in the repository layer of the log in method.");
@@ -137,6 +139,8 @@ public class UserRepository {
 
 	}
 
+	//Registration we begin transaction and insert the values using the save() as 
+	//it is the equivalent to the INSERT statement in SQL.
 	public void userRegistration(User u) {
 		Session s = null;
 		Transaction tx = null;
@@ -183,7 +187,9 @@ public class UserRepository {
 		Session s = null;
 		Transaction tx = null;
 		
-		
+		//use criteria builder in hibernate to do select equivalency in SQL.
+		//Criteria query takes the root User and orders it by descending order by points.
+		//This will be for the front end table in order to update 
 		
 		try {
 			s = SessionFactory.getSession();
