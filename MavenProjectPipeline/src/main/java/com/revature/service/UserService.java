@@ -25,10 +25,7 @@ public class UserService {
 	}
 
 	public List<User> getAllUsers() {
-<<<<<<< HEAD
 		System.out.println("getAllUsers in UserService invoked");
-=======
->>>>>>> 02f4de53fd91607eab931276fa9a01c2a853bae4
 		return ur.getAllUsersByPoints();
 	}
 
